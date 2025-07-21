@@ -1,21 +1,30 @@
 package Entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "experts")
 public class ExpertP extends User {
-    private String zone;
 
+    private String areaCompetenza;
 
-    public ExpertP(Long id, String name, String email, String password, String role, String zone) {
-        super(id, name, email, "EXPERTP", password, zone);
-        this.zone = zone;
+    public ExpertP() {
+        super();
     }
 
-    public String getZone() {
-        return zone;
+    public ExpertP(String nome, String cognome, String email, String password, boolean client,
+                   String areaCompetenza) {
+        super(nome, cognome, email, password, client);
+        this.areaCompetenza = areaCompetenza;
     }
 
-    public void setZone(String zone) {
-        this.zone = zone;
+    public String getAreaCompetenza() {
+        return areaCompetenza;
     }
+
+    public void setAreaCompetenza(String areaCompetenza) {
+        this.areaCompetenza = areaCompetenza;
+    }
+
 }
-
-

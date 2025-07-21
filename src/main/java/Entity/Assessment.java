@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "assessment")
-public class Assesment {
+public class Assessment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class Assesment {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private AssessmentState state;
+    private State state;
 
     private String documentPdfUrl;
 
@@ -33,17 +33,16 @@ public class Assesment {
     @JoinColumn(name = "expertP_id")
     private ExpertP expertP;
 
-    public Assesment() {}
+    public Assessment() {}
 
-    public Assesment(LocalDate assessmentDate, double importStimade, String technicalNote,
-                   AssesmentState state, String documentPdfUrl, Claim claim, Assesment assessment) {
+    public Assessment(LocalDate assessmentDate, double importStimade,
+                      State state, String documentPdfUrl, Claim claim, Assessment assessment) {
         this.assessmentDate = assessmentDate;
         this.importStimade = importStimade;
-        this.technicalNote = technicalNote;
         this.state = state;
         this.documentPdfUrl = documentPdfUrl;
         this.claim = claim;
-        this.expertP = expertP();
+        this.expertP = expertP;
     }
 
 }

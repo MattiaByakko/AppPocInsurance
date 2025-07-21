@@ -23,31 +23,36 @@ public class Vehicle {
     private String frame;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private Person owner;
+    @JoinColumn(name = "user_owner_id")
+    private User userOwner;
+
+    @ManyToOne
+    @JoinColumn(name = "counterpart_owner_id")
+    private Counterpart counterpartOwner;
 
     public Vehicle() {}
 
-    public Vehicle(String lPlate, String brand, String model, int imYear, String type, String frame, Person owner) {
+    public Vehicle(String lPlate, String brand, String model, int imYear, String type, String frame,
+                   User userOwner, Counterpart counterpartOwner) {
         this.lPlate = lPlate;
         this.brand = brand;
         this.model = model;
         this.imYear = imYear;
         this.type = type;
         this.frame = frame;
-        this.owner = owner;
+        this.userOwner = userOwner;
+        this.counterpartOwner = counterpartOwner;
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }
 
-    public String getlPlate() {
+    public String getLPlate() {
         return lPlate;
     }
 
-    public void setlPlate(String lPlate) {
+    public void setLPlate(String lPlate) {
         this.lPlate = lPlate;
     }
 
@@ -91,11 +96,19 @@ public class Vehicle {
         this.frame = frame;
     }
 
-    public Person getOwner() {
-        return owner;
+    public User getUserOwner() {
+        return userOwner;
     }
 
-    public void setOwner(Person owner) {
-        this.owner = owner;
+    public void setUserOwner(User userOwner) {
+        this.userOwner = userOwner;
+    }
+
+    public Counterpart getCounterpartOwner() {
+        return counterpartOwner;
+    }
+
+    public void setCounterpartOwner(Counterpart counterpartOwner) {
+        this.counterpartOwner = counterpartOwner;
     }
 }

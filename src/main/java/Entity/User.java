@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 public class User extends Person {
@@ -13,6 +17,9 @@ public class User extends Person {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private boolean client;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -24,10 +31,11 @@ public class User extends Person {
 
     public User() {}
 
-    public User(String nome, String cognome, String email, String password) {
+    public User(String nome, String cognome, String email, String password, boolean client) {
         super(nome, cognome);
         this.email = email;
         this.password = password;
+        this.client = client;
     }
 
     // Getters and setters
@@ -45,6 +53,14 @@ public class User extends Person {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isClient() {
+        return client;
+    }
+
+    public void setClient(boolean client) {
+        this.client = client;
     }
 
     public Set<Role> getRoles() {
