@@ -1,55 +1,42 @@
 package Entity;
 
-public class User {
-    private Long id;
-    private String name;
+import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "users")
+public class User extends Person {
+
+    @Column(unique = true, nullable = false)
     private String email;
-    private String role; // es. "operatore", "perito", "cliente"
+
+    @Column(nullable = false)
     private String password;
 
-    // Costruttori
-    public User(Long id, String name, String email, String expertp, String password, String zone) {
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
-    public User() {
-        this.id = id;
-        this.name = name;
+    public User() {}
+
+    public User(String nome, String cognome, String email, String password) {
+        super(nome, cognome);
         this.email = email;
-        this.role = role;
         this.password = password;
     }
 
-    // Getter e Setter
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    // Getters and setters
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getPassword() {
@@ -59,6 +46,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }
-
-

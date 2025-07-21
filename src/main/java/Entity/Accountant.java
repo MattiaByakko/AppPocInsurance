@@ -1,26 +1,26 @@
 package Entity;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Accountant extends User {
-    private String codId;  // codice interno aziendale
+
+    private String codId;
 
     public Accountant() {
         super();
-        this.setRole("ACCOUNTANT");
     }
 
-    public Accountant(Long id, String name, String email, String password, String codId) {
-        super();
+    public Accountant(String nome, String cognome, String email, String password, String codId) {
+        super(nome, cognome, email, password);
         this.codId = codId;
     }
 
-    // Getter e Setter
-
-    public String getCodIdo() {
+    public String getCodId() {
         return codId;
     }
 
     public void setCodId(String codId) {
         this.codId = codId;
     }
-
 }
