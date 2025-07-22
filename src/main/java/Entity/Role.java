@@ -1,4 +1,4 @@
-package Entity;
+/*package Entity;
 
 import jakarta.persistence.*;
 
@@ -43,3 +43,4 @@ public class Role {
         this.description = description;
     }
 }
+ */
