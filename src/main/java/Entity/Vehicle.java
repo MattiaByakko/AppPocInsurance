@@ -10,105 +10,73 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "license_plate", nullable = false, unique = true)
-    private String lPlate;
+    @Column(nullable = false)
+    private String targa;
 
-    private String brand;
-    private String model;
+    @Column(nullable = false)
+    private String marca;
 
-    @Column(name = "immatriculation_year")
-    private int imYear;
+    @Column(nullable = false)
+    private String modello;
 
-    private String type;
-    private String frame;
+    @Column(nullable = false)
+    private int anno;
 
-    @ManyToOne
-    @JoinColumn(name = "user_owner_id")
-    private User userOwner;
+    @OneToOne(mappedBy = "vehicle")
+    private Policy policy;
 
-    @ManyToOne
-    @JoinColumn(name = "counterpart_owner_id")
-    private Counterpart counterpartOwner;
-
-    public Vehicle() {}
-
-    public Vehicle(String lPlate, String brand, String model, int imYear, String type, String frame,
-                   User userOwner, Counterpart counterpartOwner) {
-        this.lPlate = lPlate;
-        this.brand = brand;
-        this.model = model;
-        this.imYear = imYear;
-        this.type = type;
-        this.frame = frame;
-        this.userOwner = userOwner;
-        this.counterpartOwner = counterpartOwner;
+    public Vehicle() {
     }
 
+    public Vehicle(String targa, String marca, String modello, int anno) {
+        this.targa = targa;
+        this.marca = marca;
+        this.modello = modello;
+        this.anno = anno;
+    }
+
+    // Getter e Setter
     public Long getId() {
         return id;
     }
 
-    public String getLPlate() {
-        return lPlate;
+    public String getTarga() {
+        return targa;
     }
 
-    public void setLPlate(String lPlate) {
-        this.lPlate = lPlate;
+    public void setTarga(String targa) {
+        this.targa = targa;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
-    public String getModel() {
-        return model;
+    public String getModello() {
+        return modello;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setModello(String modello) {
+        this.modello = modello;
     }
 
-    public int getImYear() {
-        return imYear;
+    public int getAnno() {
+        return anno;
     }
 
-    public void setImYear(int imYear) {
-        this.imYear = imYear;
+    public void setAnno(int anno) {
+        this.anno = anno;
     }
 
-    public String getType() {
-        return type;
+    public Policy getPolicy() {
+        return policy;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getFrame() {
-        return frame;
-    }
-
-    public void setFrame(String frame) {
-        this.frame = frame;
-    }
-
-    public User getUserOwner() {
-        return userOwner;
-    }
-
-    public void setUserOwner(User userOwner) {
-        this.userOwner = userOwner;
-    }
-
-    public Counterpart getCounterpartOwner() {
-        return counterpartOwner;
-    }
-
-    public void setCounterpartOwner(Counterpart counterpartOwner) {
-        this.counterpartOwner = counterpartOwner;
+    public void setPolicy(Policy policy) {
+        this.policy = policy;
     }
 }

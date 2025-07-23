@@ -1,6 +1,8 @@
 package Entity;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -20,7 +22,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String ruolo; // esempio: "ADMIN", "CLIENTE", ecc.
+    private String ruolo;
 
     public User() {
     }
@@ -32,7 +34,18 @@ public class User {
         this.ruolo = ruolo;
     }
 
-    // --- GETTER & SETTER ---
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Policy> policies = new ArrayList<>();
+
+    // Getter & Setter
+    public List<Policy> getPolicies() {
+        return policies;
+    }
+
+    public void setPolicies(List<Policy> policies) {
+        this.policies = policies;
+    }
+
     public Long getId() {
         return id;
     }
