@@ -1,44 +1,67 @@
 package Entity;
 
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-
-import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User extends Person {
+public class User {
 
-    @Column(unique = true, nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
-    private boolean client;
+    private String ruolo;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
-
-    public User() {}
-
-    public User(String nome, String cognome, String email, String password, boolean client) {
-        super(nome, cognome);
-        this.email = email;
-        this.password = password;
-        this.client = client;
+    public User() {
     }
 
-    // Getters and setters
+    public User(String username, String email, String password, String ruolo) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.ruolo = ruolo;
+    }
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Policy> policies = new ArrayList<>();
+
+    // Getter & Setter
+    public List<Policy> getPolicies() {
+        return policies;
+    }
+
+    public void setPolicies(List<Policy> policies) {
+        this.policies = policies;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -55,19 +78,11 @@ public class User extends Person {
         this.password = password;
     }
 
-    public boolean isClient() {
-        return client;
+    public String getRuolo() {
+        return ruolo;
     }
 
-    public void setClient(boolean client) {
-        this.client = client;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRuolo(String ruolo) {
+        this.ruolo = ruolo;
     }
 }

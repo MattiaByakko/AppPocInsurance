@@ -1,140 +1,81 @@
 package Entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "claim")
+@Table(name = "claims")
 public class Claim {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime date;
+    @Column(nullable = false)
+    private LocalDate dataApertura;
 
-    private String place;
-
-    @Column(length = 2000)
-    private String description;
+    private LocalDate dataChiusura;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private State state;
 
-    // Un sinistro può coinvolgere più veicoli
-    @ManyToMany
-    @JoinTable(
-            name = "claim_vehicle",
-            joinColumns = @JoinColumn(name = "claim_id"),
-            inverseJoinColumns = @JoinColumn(name = "vehicle_id")
-    )
-    private List<Vehicle> vehicleInvolved;
-
-    // Più utenti coinvolti
-    @ManyToMany
-    @JoinTable(
-            name = "claim_user",
-            joinColumns = @JoinColumn(name = "claim_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private List<User> userInvolved;
-
-    // Più controparti coinvolte (non utenti)
-    @ManyToMany
-    @JoinTable(
-            name = "claim_counterpart",
-            joinColumns = @JoinColumn(name = "claim_id"),
-            inverseJoinColumns = @JoinColumn(name = "counterpart_id")
-    )
-    private List<Counterpart> counterparties;
-
-    // Un sinistro può avere una sola perizia (relazione 1-1)
+    // 🔗 Perizia collegata
     @OneToOne(mappedBy = "claim", cascade = CascadeType.ALL)
-    private Assessment assessment;
+    private Expertise expertise;
+
+    // 🔗 Compensazione economica
+    @OneToOne(mappedBy = "claim", cascade = CascadeType.ALL)
+    private Compensation compensation;
+
+    // 🔗 Assicurato
+    @ManyToOne
+    @JoinColumn(name = "insured_id", nullable = false)
+    private Insured insured;
+
+    // 🔗 Veicolo del sinistro
+    @ManyToOne
+    @JoinColumn(name = "veicolo_id", nullable = false)
+    private Vehicle veicolo;
+
+    // 🔗 Controparte (può essere null)
+    @ManyToOne
+    @JoinColumn(name = "controparte_id")
+    private Counterpart counterpart;
 
     public Claim() {}
 
-    public Claim(LocalDateTime date, String place, String description, State state,
-                 List<Vehicle> vehicleInvolved, List<User> userInvolved,
-                 List<Counterpart> counterparties, Assessment assessment) {
-        this.date = date;
-        this.place = place;
-        this.description = description;
+    public Claim(LocalDate dataApertura, State state, Insured insured, Vehicle veicolo) {
+        this.dataApertura = dataApertura;
         this.state = state;
-        this.vehicleInvolved = vehicleInvolved;
-        this.userInvolved = userInvolved;
-        this.counterparties = counterparties;
-        this.assessment = assessment;
+        this.insured = insured;
+        this.veicolo = veicolo;
     }
 
-    // Getters e setters
+    // --- Getter & Setter ---
+    public Long getId() { return id; }
 
-    public Long getId() {
-        return id;
-    }
+    public LocalDate getDataApertura() { return dataApertura; }
+    public void setDataApertura(LocalDate dataApertura) { this.dataApertura = dataApertura; }
 
-    public LocalDateTime getDate() {
-        return date;
-    }
+    public LocalDate getDataChiusura() { return dataChiusura; }
+    public void setDataChiusura(LocalDate dataChiusura) { this.dataChiusura = dataChiusura; }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
+    public State getState() { return state; }
+    public void setState(State state) { this.state = state; }
 
-    public String getPlace() {
-        return place;
-    }
+    public Expertise getExpertise() { return expertise; }
+    public void setExpertise(Expertise expertise) { this.expertise = expertise; }
 
-    public void setPlace(String place) {
-        this.place = place;
-    }
+    public Compensation getCompensation() { return compensation; }
+    public void setCompensation(Compensation compensation) { this.compensation = compensation; }
 
-    public String getDescription() {
-        return description;
-    }
+    public Insured getInsured() { return insured; }
+    public void setInsured(Insured insured) { this.insured = insured; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public Vehicle getVeicolo() { return veicolo; }
+    public void setVeicolo(Vehicle veicolo) { this.veicolo = veicolo; }
 
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
-    }
-
-    public List<Vehicle> getVehicleInvolved() {
-        return vehicleInvolved;
-    }
-
-    public void setVehicleInvolved(List<Vehicle> vehicleInvolved) {
-        this.vehicleInvolved = vehicleInvolved;
-    }
-
-    public List<User> getUserInvolved() {
-        return userInvolved;
-    }
-
-    public void setUserInvolved(List<User> userInvolved) {
-        this.userInvolved = userInvolved;
-    }
-
-    public List<Counterpart> getCounterparties() {
-        return counterparties;
-    }
-
-    public void setCounterparties(List<Counterpart> counterparties) {
-        this.counterparties = counterparties;
-    }
-
-    public Assessment getAssessment() {
-        return assessment;
-    }
-
-    public void setAssessment(Assessment assessment) {
-        this.assessment = assessment;
-    }
+    public Counterpart getControparte() { return counterpart; }
+    public void setControparte(Counterpart counterpart) { this.counterpart = counterpart; }
 }

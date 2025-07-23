@@ -1,38 +1,23 @@
 package Service;
 
-import Entity.Role;
 import Entity.User;
-import Repository.RoleRepository;
 import Repository.UserRepository;
-import Service.UserService;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository,
-                           RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
     }
 
     @Override
-    public User createUser(User user, List<String> roleNames) {
-        Set<Role> roles = new HashSet<>();
-        for (String roleName : roleNames) {
-            Role role = roleRepository.findByName(roleName)
-                    .orElseThrow(() -> new RuntimeException("Ruolo non trovato: " + roleName));
-            roles.add(role);
-        }
-        user.setRoles(roles);
+    public User saveUser(User user) {
         return userRepository.save(user);
     }
 
@@ -42,28 +27,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public void assignRolesToUser(Long userId, List<String> roleNames) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Utente non trovato con ID: " + userId));
-
-        Set<Role> newRoles = new HashSet<>();
-        for (String roleName : roleNames) {
-            Role role = roleRepository.findByName(roleName)
-                    .orElseThrow(() -> new RuntimeException("Ruolo non trovato: " + roleName));
-            newRoles.add(role);
-        }
-
-        user.setRoles(newRoles);
-        userRepository.save(user);
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 }
