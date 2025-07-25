@@ -26,4 +26,8 @@ public class InsuranceAgent {
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.INSURANCE_AGENT;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }
