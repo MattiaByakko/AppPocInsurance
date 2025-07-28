@@ -31,11 +31,6 @@ public class Insured {
     @OneToMany(mappedBy = "insured", cascade = CascadeType.ALL)
     private List<Vehicle> vehicles;
 
-    @ManyToOne
-    @JoinColumn(name = "insured_id")
-    private Insured insured;
-
-
     public Long getId() {
         return id;
     }
