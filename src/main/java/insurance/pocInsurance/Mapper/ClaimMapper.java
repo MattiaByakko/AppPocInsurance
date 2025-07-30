@@ -3,8 +3,6 @@ package pocInsurance.Mapper;
 import pocInsurance.DTOReq.ClaimReq;
 import pocInsurance.DTORes.ClaimRes;
 import pocInsurance.Entity.Claim;
-import pocInsurance.Entity.Accountant;
-import pocInsurance.Entity.ExpertP;
 
 public class ClaimMapper {
 
@@ -15,6 +13,7 @@ public class ClaimMapper {
         return new ClaimRes(
                 claim.getId(),
                 claim.getDescrizione(),
+                claim.getZone(),
                 expertId,
                 accountantId
         );
@@ -23,6 +22,7 @@ public class ClaimMapper {
     public static Claim toClaim(ClaimReq req) {
         Claim claim = new Claim();
         claim.setDescrizione(req.getDescrizione());
+        claim.setZone(req.getZone());
         return claim;
     }
 }

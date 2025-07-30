@@ -11,6 +11,7 @@ import pocInsurance.Repository.*;
 import pocInsurance.Service.ClaimService;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,11 +49,12 @@ public class ClaimServiceImp implements ClaimService {
         claim.setPolicy(policyRepository.findById(request.getPolicyId())
                 .orElseThrow(() -> new ResourceNotFoundException("Policy not found")));
 
-        // Assegnazione automatica (può essere migliorata con logica di disponibilità, zona, ecc.)
-        ExpertP expert = expertPRepository.findAll().stream().findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("No available expert"));
-        claim.setExpertP(expert);
-
+        List<ExpertP> expertInZona = expertPRepository.findByZonaDiCompetenza(request.getZone());
+        if (expertInZona.isEmpty()) {
+            throw new ResourceNotFoundException("Nessun perito disponibile nella zona: " + request.getZone());
+        }
+        ExpertP peritoAssegnato = expertInZona.get(new Random().nextInt(expertInZona.size()));
+        claim.setExpertP(peritoAssegnato);
         Accountant accountant = accountantRepository.findAll().stream().findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("No available accountant"));
         claim.setAccountant(accountant);
@@ -74,4 +76,24 @@ public class ClaimServiceImp implements ClaimService {
                 .orElseThrow(() -> new ResourceNotFoundException("Claim not found"));
         return ClaimMapper.toClaimRes(claim);
     }
+
+    public List<ClaimRes> getClaimsByInsuredId(Long insuredId) {
+        List<Claim> claims = claimRepository.findByInsuredId(insuredId);
+        return claims.stream()
+                .map(ClaimMapper::toClaimRes)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ClaimRes updateClaimState(Long claimId, State nuovoStato) {
+        Claim claim = claimRepository.findById(claimId)
+                .orElseThrow(() -> new ResourceNotFoundException("Claim", "id", claimId));
+
+        claim.setState(nuovoStato);
+        claimRepository.save(claim);
+
+        return ClaimMapper.toClaimRes(claim);
+    }
+
+
 }

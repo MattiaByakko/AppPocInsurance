@@ -7,7 +7,7 @@ public class ClaimReq {
     private Long policyId;
 
     private String descrizione;
-    private String luogo;
+    private String zone;
     private String dataEvento;
 
     // --- Getter e Setter ---
@@ -44,12 +44,12 @@ public class ClaimReq {
         this.descrizione = descrizione;
     }
 
-    public String getLuogo() {
-        return luogo;
+    public String getZone() {
+        return zone;
     }
 
-    public void setLuogo(String luogo) {
-        this.luogo = luogo;
+    public void setZone(String zone) {
+        this.zone = zone;
     }
 
     public String getDataEvento() {

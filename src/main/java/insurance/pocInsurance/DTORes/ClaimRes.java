@@ -5,15 +5,17 @@ public class ClaimRes {
     private String descrizione;
     private Long expertId;
     private Long accountantId;
+    private Long zone;
 
     // Costruttori
-    public ClaimRes() {}
+    public ClaimRes(Long id, String descrizione, String zone, Long expertId, Long accountantId) {}
 
     public ClaimRes(Long id, String descrizione, Long expertId, Long accountantId) {
         this.id = id;
         this.descrizione = descrizione;
         this.expertId = expertId;
         this.accountantId = accountantId;
+        this.zone=zone;
     }
 
     // Getters & Setters
@@ -47,5 +49,13 @@ public class ClaimRes {
 
     public void setAccountantId(Long accountantId) {
         this.accountantId = accountantId;
+    }
+
+    public Long getZone() {
+        return zone;
+    }
+
+    public void setZone(Long zone) {
+        this.zone = zone;
     }
 }

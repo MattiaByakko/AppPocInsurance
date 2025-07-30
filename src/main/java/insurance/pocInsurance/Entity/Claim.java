@@ -61,6 +61,9 @@ public class Claim {
     @JoinColumn(name = "accountant_id")
     private Accountant accountant;
 
+    @Column(nullable = false)
+    private String zone;
+
     // --- Costruttori ---
     public Claim() {}
 
@@ -171,5 +174,13 @@ public class Claim {
 
     public void setAccountant(Accountant accountant) {
         this.accountant = accountant;
+    }
+
+    public String getZone() {
+        return zone;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
     }
 }

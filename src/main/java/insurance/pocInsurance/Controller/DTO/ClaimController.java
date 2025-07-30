@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pocInsurance.DTOReq.ClaimReq;
 import pocInsurance.DTORes.ClaimRes;
+import pocInsurance.Entity.State;
 import pocInsurance.Service.ClaimService;
 
 import java.util.List;
@@ -48,6 +49,14 @@ public class ClaimController {
     @PutMapping("/{id}/state")
     @Operation(summary = "Aggiorna lo stato del sinistro")
     public ResponseEntity<ClaimRes> updateClaimState(@PathVariable Long id, @RequestParam String state) {
-        return ResponseEntity.ok(claimService.updateClaimState(id, state));
+        return ResponseEntity.ok(claimService.updateClaimState(id, State.valueOf(state)));
     }
+
+    @PutMapping("/{claimId}/state")
+    public ResponseEntity<ClaimRes> updateClaimState(
+            @PathVariable Long claimId,
+            @RequestParam State nuovoStato) {
+        return ResponseEntity.ok(claimService.updateClaimState(claimId, nuovoStato));
+    }
+
 }
