@@ -15,9 +15,6 @@ public class Policy {
     private String numeroPolizza;
 
     @Column(nullable = false)
-    private String tipo; //
-
-    @Column(nullable = false)
     private LocalDate dataInizio;
 
     @Column(nullable = false)
@@ -30,9 +27,8 @@ public class Policy {
 
     public Policy() {}
 
-    public Policy(String numeroPolizza, String tipo, User user) {
+    public Policy(String numeroPolizza, User user) {
         this.numeroPolizza = numeroPolizza;
-        this.tipo = tipo;
         this.user = user;
     }
 
@@ -77,14 +73,6 @@ public class Policy {
 
     public void setNumeroPolizza(String numeroPolizza) {
         this.numeroPolizza = numeroPolizza;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public User getUser() {

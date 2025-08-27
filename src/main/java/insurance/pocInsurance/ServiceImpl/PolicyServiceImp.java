@@ -79,6 +79,8 @@ public class PolicyServiceImp implements PolicyService {
                 .dataFine(policy.getDataFine().toString())
                 .userId(policy.getUser().getId())
                 .vehicleId(policy.getVehicle().getId())
+                .vehicleTarga(policy.getVehicle().getTarga())
+                .insuredNome(policy.getUser().getUsername()) // o policy.getUser().getFullName() se esiste
                 .build();
     }
     @Override

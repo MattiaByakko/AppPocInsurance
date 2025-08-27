@@ -11,4 +11,5 @@ public class AccountantRes {
     private String cognome;
     private String codiceFiscale;
     private String username;
+    private String role; // <- aggiunto
 }

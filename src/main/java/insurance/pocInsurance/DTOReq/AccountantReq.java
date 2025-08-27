@@ -24,4 +24,6 @@ public class AccountantReq {
 
     @Schema(description = "Ruolo dell'utente", example = "ACCOUNTANT")
     private String role;
+
+    private String email;
 }

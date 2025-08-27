@@ -69,8 +69,11 @@ public class ExpertiseServiceImp implements ExpertiseService {
 
     @Override
     public List<ExpertiseRes> getExpertisesByExpertUsername(String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User non trovato: " + username));
+        Optional<User> userOpt = userRepository.findByUsername(username);
+        if (userOpt.isEmpty()) {
+            throw new RuntimeException("User non trovato: " + username);
+        }
+        User user = userOpt.get();
 
         ExpertP expert = expertPRepository.findByUserId(user.getId())
                 .orElseThrow(() -> new RuntimeException("Perito non trovato per user: " + username));
@@ -105,10 +108,19 @@ public class ExpertiseServiceImp implements ExpertiseService {
         expertiseRepository.delete(expertise);
     }
 
+    @Override
+    public List<ExpertiseRes> getAllExpertises() {
+        return expertiseRepository.findAll()
+                .stream()
+                .map(this::mapToRes)
+                .collect(Collectors.toList());
+    }
+
+
     private ExpertiseRes mapToRes(Expertise expertise) {
         return ExpertiseRes.builder()
                 .id(expertise.getId())
-                .description(expertise.getDescrizione())
+                .descrizione(expertise.getDescrizione())
                 .dataCreazione(expertise.getDataCreazione())
                 .claimId(expertise.getClaim().getId())
                 .expertId(expertise.getExpert().getId())

@@ -136,11 +136,11 @@ public class Claim {
         this.veicolo = veicolo;
     }
 
-    public Counterpart getControparte() {
+    public Counterpart getCounterpart() {
         return counterpart;
     }
 
-    public void setControparte(Counterpart counterpart) {
+    public void setCounterpart(Counterpart counterpart) {
         this.counterpart = counterpart;
     }
 

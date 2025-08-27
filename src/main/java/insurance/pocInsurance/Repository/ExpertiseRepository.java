@@ -11,6 +11,5 @@ public interface ExpertiseRepository extends JpaRepository<Expertise, Long> {
     Optional<Expertise> findByClaimId(Long claimId);
     Optional<Expertise> findByExpertIdAndClaimId(Long expertId, Long claimId);
     List<Expertise> findByExpertId(Long expertId);
-    List<Expertise> findByExpertPUserUsername(String username);
 }
 

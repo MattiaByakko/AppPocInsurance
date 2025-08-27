@@ -25,4 +25,7 @@ public class ExpertPRes {
 
     @Schema(description = "Username collegato all'utente", example = "expert123")
     private String username;
+
+    @Schema(description = "Email dell'utente", example = "mario.rossi@example.com")
+    private String email; // <-- aggiunto
 }

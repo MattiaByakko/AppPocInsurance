@@ -25,4 +25,8 @@ public class PolicyRes {
 
     @Schema(description = "ID veicolo associato", example = "2")
     private Long vehicleId;
+
+    private String vehicleTarga;
+
+    private String insuredNome;
 }

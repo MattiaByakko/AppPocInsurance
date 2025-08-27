@@ -26,4 +26,7 @@ public class ExpertPReq {
 
     @Schema(description = "Ruolo utente (deve essere 'EXPERT')", example = "EXPERT")
     private String role;
+
+    @Schema(description = "Email del perito", example = "mario.rossi@email.com")
+    private String email;  // <<< NUOVO CAMPO
 }

@@ -28,6 +28,7 @@ public class AccountantServiceImp implements AccountantService {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setEmail(request.getEmail());
         user.setRuolo(Role.valueOf(request.getRole()));
         user = userRepository.save(user);
 
@@ -57,6 +58,7 @@ public class AccountantServiceImp implements AccountantService {
                 .cognome(accountant.getCognome())
                 .codiceFiscale(accountant.getCodiceFiscale())
                 .username(accountant.getUser().getUsername())
+                .role(accountant.getUser().getRuolo().name()) // <- mappaggio ruolo
                 .build();
     }
 }

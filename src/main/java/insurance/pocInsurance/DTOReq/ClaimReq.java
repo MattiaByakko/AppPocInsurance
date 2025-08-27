@@ -1,62 +1,69 @@
 package pocInsurance.DTOReq;
 
+
 public class ClaimReq {
+
+    private String descrizione;
+    private String zone;
+    private String dataEvento; // formato ISO yyyy-MM-dd
 
     private Long insuredId;
     private Long vehicleId;
     private Long policyId;
 
-    private String descrizione;
-    private String zone;
-    private String dataEvento;
+    private Long expertId;
+    private Long accountantId;
 
-    // --- Getter e Setter ---
+    private Long counterpartId; // se esiste già
+    private String counterpartNome;
+    private String counterpartCognome;
+    private String counterpartCodiceFiscale;
+    private String counterpartIndirizzo;
 
-    public Long getInsuredId() {
-        return insuredId;
-    }
+    private String state; // valore enum State come stringa
 
-    public void setInsuredId(Long insuredId) {
-        this.insuredId = insuredId;
-    }
+    public ClaimReq() {}
 
-    public Long getVehicleId() {
-        return vehicleId;
-    }
+    // --- Getters & Setters ---
+    public String getDescrizione() { return descrizione; }
+    public void setDescrizione(String descrizione) { this.descrizione = descrizione; }
 
-    public void setVehicleId(Long vehicleId) {
-        this.vehicleId = vehicleId;
-    }
+    public String getZone() { return zone; }
+    public void setZone(String zone) { this.zone = zone; }
 
-    public Long getPolicyId() {
-        return policyId;
-    }
+    public String getDataEvento() { return dataEvento; }
+    public void setDataEvento(String dataEvento) { this.dataEvento = dataEvento; }
 
-    public void setPolicyId(Long policyId) {
-        this.policyId = policyId;
-    }
+    public Long getInsuredId() { return insuredId; }
+    public void setInsuredId(Long insuredId) { this.insuredId = insuredId; }
 
-    public String getDescrizione() {
-        return descrizione;
-    }
+    public Long getVehicleId() { return vehicleId; }
+    public void setVehicleId(Long vehicleId) { this.vehicleId = vehicleId; }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
+    public Long getPolicyId() { return policyId; }
+    public void setPolicyId(Long policyId) { this.policyId = policyId; }
 
-    public String getZone() {
-        return zone;
-    }
+    public Long getExpertId() { return expertId; }
+    public void setExpertId(Long expertId) { this.expertId = expertId; }
 
-    public void setZone(String zone) {
-        this.zone = zone;
-    }
+    public Long getAccountantId() { return accountantId; }
+    public void setAccountantId(Long accountantId) { this.accountantId = accountantId; }
 
-    public String getDataEvento() {
-        return dataEvento;
-    }
+    public Long getCounterpartId() { return counterpartId; }
+    public void setCounterpartId(Long counterpartId) { this.counterpartId = counterpartId; }
 
-    public void setDataEvento(String dataEvento) {
-        this.dataEvento = dataEvento;
-    }
+    public String getCounterpartNome() { return counterpartNome; }
+    public void setCounterpartNome(String counterpartNome) { this.counterpartNome = counterpartNome; }
+
+    public String getCounterpartCognome() { return counterpartCognome; }
+    public void setCounterpartCognome(String counterpartCognome) { this.counterpartCognome = counterpartCognome; }
+
+    public String getCounterpartCodiceFiscale() { return counterpartCodiceFiscale; }
+    public void setCounterpartCodiceFiscale(String counterpartCodiceFiscale) { this.counterpartCodiceFiscale = counterpartCodiceFiscale; }
+
+    public String getCounterpartIndirizzo() { return counterpartIndirizzo; }
+    public void setCounterpartIndirizzo(String counterpartIndirizzo) { this.counterpartIndirizzo = counterpartIndirizzo; }
+
+    public String getState() { return state; }
+    public void setState(String state) { this.state = state; }
 }

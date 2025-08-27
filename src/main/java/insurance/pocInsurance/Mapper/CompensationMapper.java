@@ -3,19 +3,18 @@ package pocInsurance.Mapper;
 import org.springframework.stereotype.Component;
 import pocInsurance.DTORes.CompensationRes;
 import pocInsurance.Entity.Compensation;
-import pocInsurance.Entity.CompensationState;
 
 @Component
 public class CompensationMapper {
 
     public CompensationRes toDto(Compensation compensation) {
-        return CompensationRes.builder()
-                .id(compensation.getId())
-                .importoStimato(compensation.getImportoStimato())
-                .massimale(compensation.getMassimale())
-                .stato(CompensationState.valueOf(compensation.getStato().name()))
-                .claimId(compensation.getClaim().getId())
-                .accountantId(compensation.getAccountant().getId())
-                .build();
+        CompensationRes res = new CompensationRes();
+        res.setId(compensation.getId());
+        res.setImportoStimato(compensation.getImportoStimato());
+        res.setMassimale(compensation.getMassimale());
+        res.setStato(compensation.getStato().name()); // <-- enum convertito in String
+        res.setClaimId(compensation.getClaim().getId());
+        res.setAccountantId(compensation.getAccountant().getId());
+        return res;
     }
 }

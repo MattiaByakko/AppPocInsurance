@@ -18,4 +18,6 @@ public interface ExpertiseService {
     ExpertiseRes updateExpertise(Long id, ExpertiseReq request);
 
     void deleteExpertise(Long id);
+
+    List<ExpertiseRes> getAllExpertises();
 }

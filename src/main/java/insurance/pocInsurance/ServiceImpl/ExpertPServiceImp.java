@@ -35,6 +35,7 @@ public class ExpertPServiceImp implements ExpertPService {
         user.setUsername(req.getUsername());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRuolo(Role.EXPERTP);
+        user.setEmail(req.getEmail()); // <-- aggiunto
         userRepository.save(user);
 
         // Creazione ExpertP
@@ -54,6 +55,7 @@ public class ExpertPServiceImp implements ExpertPService {
                 .codiceFiscale(saved.getCodiceFiscale())
                 .zonaDiCompetenza(saved.getZonaDiCompetenza())
                 .username(user.getUsername())
+                .email(user.getEmail()) // <-- aggiunto
                 .build();
     }
 
@@ -69,6 +71,7 @@ public class ExpertPServiceImp implements ExpertPService {
                 .codiceFiscale(expert.getCodiceFiscale())
                 .zonaDiCompetenza(expert.getZonaDiCompetenza())
                 .username(expert.getUser().getUsername())
+                .email(expert.getUser().getEmail()) // <-- aggiunto
                 .build();
     }
 
@@ -82,6 +85,7 @@ public class ExpertPServiceImp implements ExpertPService {
                         .codiceFiscale(expert.getCodiceFiscale())
                         .zonaDiCompetenza(expert.getZonaDiCompetenza())
                         .username(expert.getUser().getUsername())
+                        .email(expert.getUser().getEmail()) // <-- aggiunto
                         .build()
         ).collect(Collectors.toList());
     }
@@ -90,6 +94,7 @@ public class ExpertPServiceImp implements ExpertPService {
     public void deleteExpert(Long id) {
         expertPRepository.deleteById(id);
     }
+
     private ExpertPRes mapToRes(ExpertP expertP) {
         return ExpertPRes.builder()
                 .id(expertP.getId())
@@ -97,6 +102,8 @@ public class ExpertPServiceImp implements ExpertPService {
                 .cognome(expertP.getCognome())
                 .codiceFiscale(expertP.getCodiceFiscale())
                 .zonaDiCompetenza(expertP.getZonaDiCompetenza())
+                .username(expertP.getUser().getUsername())
+                .email(expertP.getUser().getEmail()) // <-- aggiunto
                 .build();
     }
 
@@ -105,5 +112,4 @@ public class ExpertPServiceImp implements ExpertPService {
         List<ExpertP> experts = expertPRepository.findByZonaDiCompetenza(zona);
         return experts.stream().map(this::mapToRes).toList();
     }
-
 }

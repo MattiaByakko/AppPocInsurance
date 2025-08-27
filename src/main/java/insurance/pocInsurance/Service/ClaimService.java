@@ -12,4 +12,5 @@ public interface ClaimService {
     ClaimRes getClaimById(Long id);
     ClaimRes updateClaimState(Long claimId, State nuovoStato);
     List<ClaimRes> getClaimsByInsuredId(Long insuredId);
+    ClaimRes updateClaim(Long claimId, ClaimReq request);
 }

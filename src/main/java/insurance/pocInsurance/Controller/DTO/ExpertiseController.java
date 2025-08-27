@@ -32,6 +32,12 @@ public class ExpertiseController {
         return ResponseEntity.ok(expertiseService.getExpertiseById(id));
     }
 
+    @GetMapping("/all")
+    @Operation(summary = "Ottiene tutte le perizie")
+    public ResponseEntity<List<ExpertiseRes>> getAllExpertises() {
+        return ResponseEntity.ok(expertiseService.getAllExpertises());
+    }
+
     @GetMapping("/expert/{username}")
     @Operation(summary = "Ottiene tutte le perizie create da un perito (username)")
     public ResponseEntity<List<ExpertiseRes>> getExpertisesByExpertUsername(@PathVariable String username) {

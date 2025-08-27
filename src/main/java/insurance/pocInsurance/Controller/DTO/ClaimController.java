@@ -1,8 +1,6 @@
 package pocInsurance.Controller.DTO;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pocInsurance.DTOReq.ClaimReq;
 import pocInsurance.DTORes.ClaimRes;
@@ -13,50 +11,48 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/claims")
-@Tag(name = "Claims", description = "Gestione dei sinistri assicurativi")
 public class ClaimController {
 
     private final ClaimService claimService;
 
+    @Autowired
     public ClaimController(ClaimService claimService) {
         this.claimService = claimService;
     }
 
-    @PostMapping
-    @Operation(summary = "Crea un nuovo sinistro")
-    public ResponseEntity<ClaimRes> createClaim(@RequestBody ClaimReq request) {
-        return ResponseEntity.ok(claimService.createClaim(request));
-    }
-
+    // --- Ottieni tutti i claim ---
     @GetMapping
-    @Operation(summary = "Recupera tutti i sinistri")
-    public ResponseEntity<List<ClaimRes>> getAllClaims() {
-        return ResponseEntity.ok(claimService.getAllClaims());
+    public List<ClaimRes> getAllClaims() {
+        return claimService.getAllClaims();
     }
 
+    // --- Ottieni un singolo claim per ID ---
     @GetMapping("/{id}")
-    @Operation(summary = "Recupera un sinistro tramite ID")
-    public ResponseEntity<ClaimRes> getClaimById(@PathVariable Long id) {
-        return ResponseEntity.ok(claimService.getClaimById(id));
+    public ClaimRes getClaimById(@PathVariable Long id) {
+        return claimService.getClaimById(id);
     }
 
+    // --- Ottieni claim di un assicurato ---
     @GetMapping("/insured/{insuredId}")
-    @Operation(summary = "Recupera i sinistri di un assicurato specifico")
-    public ResponseEntity<List<ClaimRes>> getClaimsByInsured(@PathVariable Long insuredId) {
-        return ResponseEntity.ok(claimService.getClaimsByInsuredId(insuredId));
+    public List<ClaimRes> getClaimsByInsured(@PathVariable Long insuredId) {
+        return claimService.getClaimsByInsuredId(insuredId);
     }
 
-    @PutMapping("/{id}/state")
-    @Operation(summary = "Aggiorna lo stato del sinistro")
-    public ResponseEntity<ClaimRes> updateClaimState(@PathVariable Long id, @RequestParam String state) {
-        return ResponseEntity.ok(claimService.updateClaimState(id, State.valueOf(state)));
+    // --- Crea un nuovo claim ---
+    @PostMapping
+    public ClaimRes createClaim(@RequestBody ClaimReq request) {
+        return claimService.createClaim(request);
     }
 
-    @PutMapping("/{claimId}/state")
-    public ResponseEntity<ClaimRes> updateClaimState(
-            @PathVariable Long claimId,
-            @RequestParam State nuovoStato) {
-        return ResponseEntity.ok(claimService.updateClaimState(claimId, nuovoStato));
+    // --- Aggiorna tutti i campi di un claim esistente ---
+    @PutMapping("/{id}")
+    public ClaimRes updateClaim(@PathVariable Long id, @RequestBody ClaimReq request) {
+        return claimService.updateClaim(id, request);
     }
 
+    // --- Aggiorna solo lo stato di un claim ---
+    @PatchMapping("/{id}/state")
+    public ClaimRes updateClaimState(@PathVariable Long id, @RequestParam State nuovoStato) {
+        return claimService.updateClaimState(id, nuovoStato);
+    }
 }
