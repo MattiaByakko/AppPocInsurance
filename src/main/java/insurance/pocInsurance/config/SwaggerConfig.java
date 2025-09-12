@@ -1,4 +1,4 @@
-package pocInsurance.config;
+/*package pocInsurance.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -17,3 +17,4 @@ public class SwaggerConfig {
                         .description("Documentazione delle API per la gestione dei sinistri assicurativi"));
     }
 }
+*/

@@ -24,7 +24,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/myrealm
+          issuer-uri: http://localhost:8080/realms/insurance
+          jwk-set-uri: http://localhost:8080/realms/insurance/protocol/openid-connect/certs
 
 logging:
   level:
